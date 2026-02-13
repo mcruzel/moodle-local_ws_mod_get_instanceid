@@ -1,33 +1,33 @@
-# Plugin Moodle : local_ws_mod_get_instanceid
+# Moodle Plugin: local_ws_mod_get_instanceid
 
-Ce plugin ajoute un webservice à Moodle qui permet de récupérer l'ID d'instance et le type de module à partir d'un ID de module de cours (cmid).
+This plugin adds a web service to Moodle that retrieves the instance ID and module type from a course module ID (cmid).
 
-## Licence
+## License
 MIT License
 Copyright (c) 2025 Maxime Cruzel
 March 2025
 
 ## Installation
 
-1. Copiez le contenu de ce dossier dans le répertoire `local/ws_mod_get_instanceid` de votre installation Moodle
-2. Connectez-vous à votre site Moodle en tant qu'administrateur
-3. Allez dans Administration du site > Notifications
-4. Suivez les instructions pour installer le plugin
+1. Copy the contents of this folder to the `local/ws_mod_get_instanceid` directory in your Moodle installation
+2. Log in to your Moodle site as an administrator
+3. Go to Site administration > Notifications
+4. Follow the instructions to install the plugin
 
-## Utilisation du webservice
+## Web Service Usage
 
-### Nom du webservice
+### Web Service Name
 `local_ws_mod_get_instanceid_get_instance`
 
-### Paramètres
-- `cmid` (int) : ID du module de cours
+### Parameters
+- `cmid` (int): Course module ID
 
-### Retour
-Le webservice retourne un objet JSON contenant :
-- `instanceid` (int) : ID de l'instance du module
-- `modulename` (string) : Nom du type de module (ex: quiz, assign)
+### Return Value
+The web service returns a JSON object containing:
+- `instanceid` (int): Module instance ID
+- `modulename` (string): Module type name (e.g., quiz, assign)
 
-### Exemple de réponse
+### Example Response
 ```json
 {
     "instanceid": 45,
@@ -35,23 +35,23 @@ Le webservice retourne un objet JSON contenant :
 }
 ```
 
-## Sécurité
-- Le webservice nécessite une authentification
-- L'utilisateur doit avoir la capacité `moodle/course:view` pour utiliser le webservice
-- Les paramètres sont validés et assainis
-- Les exceptions sont gérées de manière appropriée
+## Security
+- The web service requires authentication
+- Users must have the `moodle/course:view` capability to use the web service
+- Parameters are validated and sanitized
+- Exceptions are handled appropriately
 
 ## Tests
-Le plugin inclut des tests unitaires qui couvrent :
-- La récupération d'un module de cours valide
-- La gestion des modules de cours invalides
-- La gestion des permissions utilisateur
+The plugin includes unit tests that cover:
+- Retrieving a valid course module
+- Handling invalid course modules
+- Managing user permissions
 
-Pour exécuter les tests :
-1. Assurez-vous que PHPUnit est installé
-2. Exécutez la commande : `php admin/tool/phpunit/cli/init.php`
-3. Puis : `vendor/bin/phpunit local_ws_mod_get_instanceid/tests/external_test.php`
+To run the tests:
+1. Ensure PHPUnit is installed
+2. Run the command: `php admin/tool/phpunit/cli/init.php`
+3. Then: `vendor/bin/phpunit local_ws_mod_get_instanceid/tests/external_test.php`
 
-## Versions
-- Version actuelle : 2024032102
-- Compatible avec Moodle 4.1 et supérieur 
+## Version
+- Current version: 2024032102
+- Compatible with Moodle 4.1 and higher 

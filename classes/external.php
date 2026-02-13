@@ -16,42 +16,42 @@ require_once($CFG->libdir . '/moodlelib.php');
 class local_ws_mod_get_instanceid_external extends external_api {
     
     /**
-     * Retourne la description des paramètres pour get_instance
+     * Returns the parameter description for get_instance
      *
      * @return external_function_parameters
      */
     public static function get_instance_parameters() {
         return new external_function_parameters(
             array(
-                'cmid' => new external_value(PARAM_INT, 'ID du module de cours (course module id)')
+                'cmid' => new external_value(PARAM_INT, get_string('cmid_param_desc', 'local_ws_mod_get_instanceid'))
             )
         );
     }
 
     /**
-     * Récupère l'ID d'instance et le type de module à partir d'un cmid
+     * Retrieves the instance ID and module type from a cmid
      *
-     * @param int $cmid ID du module de cours
+     * @param int $cmid Course module ID
      * @return array
      * @throws moodle_exception
      */
     public static function get_instance($cmid) {
         global $DB;
 
-        // Valider les paramètres
+        // Validate parameters
         $params = self::validate_parameters(self::get_instance_parameters(), array('cmid' => $cmid));
 
-        // Vérifier que le module existe
+        // Check that the module exists
         $cm = $DB->get_record('course_modules', array('id' => $params['cmid']), '*', MUST_EXIST);
-        
-        // Récupérer le cours associé
+
+        // Get the associated course
         $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-        
-        // Vérifier les permissions de l'utilisateur
+
+        // Check user permissions
         $context = context_course::instance($course->id);
         require_capability('moodle/course:view', $context);
-        
-        // Récupérer le nom du module
+
+        // Get the module name
         $module = $DB->get_record('modules', array('id' => $cm->module), '*', MUST_EXIST);
 
         return array(
@@ -61,15 +61,15 @@ class local_ws_mod_get_instanceid_external extends external_api {
     }
 
     /**
-     * Retourne la description de la valeur de retour pour get_instance
+     * Returns the return value description for get_instance
      *
      * @return external_single_structure
      */
     public static function get_instance_returns() {
         return new external_single_structure(
             array(
-                'instanceid' => new external_value(PARAM_INT, 'ID de l\'instance du module'),
-                'modulename' => new external_value(PARAM_TEXT, 'Nom du type de module (ex: quiz, assign)')
+                'instanceid' => new external_value(PARAM_INT, get_string('instanceid_return_desc', 'local_ws_mod_get_instanceid')),
+                'modulename' => new external_value(PARAM_TEXT, get_string('modulename_return_desc', 'local_ws_mod_get_instanceid'))
             )
         );
     }
